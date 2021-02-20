@@ -53,7 +53,7 @@ class _HomePageState extends State<HomePage> {
     try {
 
       var news = await _api.getTopHeadlines();
-      log("Test api = ${news.totalResults}");
+      log("Test api = ${news.articles[0].content}");
       setState(() {
         _news = news;
       });

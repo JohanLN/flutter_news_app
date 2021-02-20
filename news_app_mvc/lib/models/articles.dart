@@ -4,20 +4,22 @@ class Articles {
 
   final String title;
   final String description;
+  String content;
   final String url;
-  final String urlToImage;
+  String urlToImage;
   final String date;
 
-  Articles({this.title, this.description, this.url, this.urlToImage, this.date});
+  Articles({this.title, this.description, this.content, this.url, this.urlToImage, this.date});
 
   factory Articles.fromJson(Map<String, dynamic> json) {
 
     return Articles(
       title: json['title'] as String,
       description: json['description'] as String,
+      content: json['content'] as String,
       url: json['url'] as String,
       urlToImage: json['urlToImage'] as String,
-      date: json['publishedAt'] as String
+      date: json['publishedAt'] as String,
     );
 
   }

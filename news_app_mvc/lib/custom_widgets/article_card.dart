@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:news_app_mvc/models/articles.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:news_app_mvc/views/page_details.dart';
 
 // Un customWidget qui va nous permettre d'afficher des cartes contenant la preview de nos articles dans la HomePage pour avoir un code plus lisible.
 
@@ -26,6 +27,10 @@ class _ArticleCardState extends State<ArticleCard> {
     super.initState();
     _isFavorite = Icons.favorite_border;
     _isFilled = Colors.grey;
+    if (widget.articles.urlToImage == null) {
+      widget.articles.urlToImage = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png";
+    }
+    print(widget.articles.urlToImage);
   }
 
   @override
@@ -45,6 +50,7 @@ class _ArticleCardState extends State<ArticleCard> {
                 InkWell(
                     onTap: () {
                       print("Tap at index : ${widget.index}");
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => PageDetails(articles: widget.articles, isFavorite: _isFavorite, isFilled: _isFilled,)));
                     },
                     child: Container(
                       width: 300,
@@ -53,7 +59,7 @@ class _ArticleCardState extends State<ArticleCard> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          Image(image: NetworkImage(widget.articles.urlToImage), height: 200),
+                          ClipRRect(borderRadius: BorderRadius.circular(8.0), child: Image(image: NetworkImage(widget.articles.urlToImage), height: 200)),
                           Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Text("${widget.articles.title}", textAlign: TextAlign.left,style: TextStyle(fontSize: 13),),
