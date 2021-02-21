@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:news_app_mvc/custom_widgets/profile_card.dart';
+import 'package:news_app_mvc/custom_widgets/theme_switch.dart';
 import 'package:news_app_mvc/views/select_fav_categories.dart';
 
 class Profile extends StatefulWidget {
@@ -10,6 +10,13 @@ class Profile extends StatefulWidget {
 }
 
 class _ProfileState extends State<Profile> {
+
+  bool _isSwitched = false;
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,29 +41,61 @@ class _ProfileState extends State<Profile> {
                     child: Text("update picture button")
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  print("Username");
-                },
-                child: ProfileCard(cardTitle: "Username", cardIcon: Icons.account_circle_rounded,)
+              Card(
+                margin: const EdgeInsets.only(top: 20.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 60,
+                  child: Center(
+                    child: ListTile(
+                      leading: Icon(Icons.account_circle, size: 40,),
+                      title: Text("Username", style: TextStyle(fontSize: 20, color: Theme.of(context).accentColor)),
+                    ),
+                  ),
+                ),
               ),
-              InkWell(
-                onTap: () {
-                  print("Country");
-                },
-                child: ProfileCard(cardTitle: "Country", cardIcon: Icons.public,)
+              Card(
+                margin: const EdgeInsets.only(top: 20.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 60,
+                  child: Center(
+                    child: ListTile(
+                      leading: Icon(Icons.public, size: 40,),
+                      title: Text("Country", style: TextStyle(fontSize: 20, color: Theme.of(context).accentColor)),
+                    ),
+                  ),
+                ),
               ),
-              InkWell(
-                onTap: () {
-                  print("Dark mode");
-                },
-                child: ProfileCard(cardTitle: "Dark mode", cardIcon: Icons.brightness_6)
+              Card(
+                margin: const EdgeInsets.only(top: 20.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 60,
+                  child: Center(
+                    child: ListTile(
+                      leading: Icon(Icons.brightness_6, size: 40,),
+                      title: Text("Dark mode", style: TextStyle(fontSize: 20, color: Theme.of(context).accentColor)),
+                      trailing: ThemeSwitch()
+                    ),
+                  ),
+                ),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => SelectFavCategories()));
-                },
-                child: ProfileCard(cardTitle: "Favorite categories", cardIcon: Icons.favorite_border,)
+              Card(
+                margin: const EdgeInsets.only(top: 20.0),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 60,
+                  child: Center(
+                    child: ListTile(
+                      leading: Icon(Icons.favorite_border, size: 40),
+                      title: Text("Favorite categories", style: TextStyle(fontSize: 20, color: Theme.of(context).accentColor)),
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SelectFavCategories()));
+                      },
+                    ),
+                  ),
+                ),
               ),
             ],
           ),

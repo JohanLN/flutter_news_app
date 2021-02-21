@@ -16,8 +16,10 @@ class _SelectFavCategoriesState extends State<SelectFavCategories> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("coucou"),
+    return Scaffold(
+      body: Center(
+        child: Text("coucou"),
+      ),
     );
   }
 }

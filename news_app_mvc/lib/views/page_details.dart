@@ -60,7 +60,7 @@ class _PageDetailsState extends State<PageDetails> {
         toolbarHeight: 100,
           title: Text(
             widget.articles.title,
-            style: TextStyle(fontSize: 15, color: Theme.of(context).accentColor),
+            style: TextStyle(fontSize: 15),
             overflow: TextOverflow.ellipsis,
             maxLines: 3,
         )
@@ -85,7 +85,7 @@ class _PageDetailsState extends State<PageDetails> {
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 30.0),
-            child: Text(widget.articles.content, style: TextStyle(fontSize: 18)),
+            child: Text(widget.articles.content)
           ),
           Padding(
             padding: const EdgeInsets.only(left: 20.0, right: 20.0, top: 5.0),

@@ -113,7 +113,7 @@ class _MasterPageState extends State<MasterPage> {
           ),
         ],
         currentIndex: _index,
-        selectedItemColor: Colors.cyan,
+        selectedItemColor: Theme.of(context).accentColor,
         onTap: onPressItem,
       ),
     );

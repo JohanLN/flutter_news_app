@@ -39,7 +39,6 @@ class _ArticleCardState extends State<ArticleCard> {
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Card(
-            color: Colors.white70,
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(5.0)
             ),
@@ -62,7 +61,7 @@ class _ArticleCardState extends State<ArticleCard> {
                           ClipRRect(borderRadius: BorderRadius.circular(8.0), child: Image(image: NetworkImage(widget.articles.urlToImage), height: 200)),
                           Padding(
                             padding: const EdgeInsets.all(10.0),
-                            child: Text("${widget.articles.title}", textAlign: TextAlign.left,style: TextStyle(fontSize: 13),),
+                            child: Text("${widget.articles.title}", textAlign: TextAlign.left,style: TextStyle(fontSize: 13)),
                           )
                         ],
                       ),
