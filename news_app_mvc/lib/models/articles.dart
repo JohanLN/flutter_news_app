@@ -3,7 +3,7 @@
 class Articles {
 
   final String title;
-  final String description;
+  String description;
   String content;
   final String url;
   String urlToImage;

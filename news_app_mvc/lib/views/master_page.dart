@@ -52,7 +52,7 @@ class _MasterPageState extends State<MasterPage> {
   IconButton _leadingButton() {
     if (_index != 0)
       return  IconButton(
-        icon: Icon(Icons.arrow_back),
+        icon: Icon(Icons.arrow_back, color: Theme.of(context).accentColor),
         onPressed: () {
           onPressItem(0);
         },
@@ -74,7 +74,7 @@ class _MasterPageState extends State<MasterPage> {
           style: TextStyle(fontSize: 25, color: Theme.of(context).accentColor),
         ),
       ),
-      body: Row(
+      body: Column(
         children: [
           // Expanded pour que le widget séléctionné remplisse bien tout l'espace restant
           Expanded(child: _widgets.elementAt(_index))

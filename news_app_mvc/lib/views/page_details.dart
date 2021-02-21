@@ -26,15 +26,23 @@ class _PageDetailsState extends State<PageDetails> {
   }
 
   _resizeContentString() {
-    if (widget.articles.content.length <= 201)
-      return;
-    int i = 0;
-    int j = 0;
-    for (i = 0; widget.articles.content[i] != '['; i++);
-    print(i);
-    for (j = 0; widget.articles.content[i] != ']'; i++, j++);
-    j++;
-    widget.articles.content = widget.articles.content.substring(0, widget.articles.content.length - j);
+    if (widget.articles.description == null) {
+      widget.articles.description = "No description for this article";
+    }
+    if (widget.articles.content != null) {
+      if (widget.articles.content.length <= 201)
+        return;
+      int i = 0;
+      int j = 0;
+      for (i = 0; widget.articles.content[i] != '['; i++);
+      print(i);
+      for (j = 0; widget.articles.content[i] != ']'; i++, j++);
+      j++;
+      widget.articles.content = widget.articles.content.substring(
+          0, widget.articles.content.length - j);
+    } else {
+      widget.articles.content = "No content for this article.";
+    }
   }
 
   @override
@@ -42,12 +50,19 @@ class _PageDetailsState extends State<PageDetails> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Theme.of(context).accentColor,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         toolbarHeight: 100,
           title: Text(
             widget.articles.title,
             style: TextStyle(fontSize: 15, color: Theme.of(context).accentColor),
             overflow: TextOverflow.ellipsis,
-            maxLines: 20,
+            maxLines: 3,
         )
       ),
       body: Column(
