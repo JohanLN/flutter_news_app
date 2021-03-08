@@ -3,7 +3,12 @@ class User {
   String username;
   String country;
 
-  User({this.username, this.country});
+  User(
+        {
+          this.username,
+          this.country,
+        }
+      );
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
@@ -13,6 +18,6 @@ class User {
   }
   Map<String, dynamic> toJson() => {
     "username": username,
-    "country": country
+    "country": country,
   };
 }

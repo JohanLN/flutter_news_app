@@ -15,7 +15,8 @@ class Profile extends StatefulWidget {
 
 class _ProfileState extends State<Profile> {
 
-  User _user = User();
+  User _user;
+  bool _isLoading = false;
 
   @override
   initState() {
@@ -24,49 +25,29 @@ class _ProfileState extends State<Profile> {
   }
 
   _setUserInfos() async {
-    var isUserExist = User.fromJson(await SharedPrefController().getUser());
-    if (isUserExist != null) {
+    setState(() {
+      _isLoading = true;
+    });
+    try {
+      var isUserExist = User.fromJson(await SharedPrefController().getUser());
+      if (isUserExist != null) {
+        setState(() {
+          _user = isUserExist;
+        });
+      }
+    } catch (err) {
+      print(err);
+    } finally {
       setState(() {
-        _user = isUserExist;
+        _isLoading = false;
       });
     }
   }
 
-  /*Future<String> createUsernameDialog(BuildContext context) {
-
-    TextEditingController customController = TextEditingController();
-
-    return showDialog(context: context, builder: (context) {
-      return AlertDialog(
-        title: Text("Change username"),
-        content: TextField(
-          controller: customController,
-          decoration: InputDecoration(
-            labelText: "Username",
-            hintText: "ex: John Doe"
-          ),
-        ),
-        actions: [
-          FlatButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text("Cancel")),
-          FlatButton(
-            onPressed: () {
-              Navigator.of(context).pop(customController.text.toString());
-            },
-            child: Text("Submit"))
-        ],
-      );
-    });
-
-  }*/
-
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView (
-      child: SafeArea(
+      child: _isLoading ? Padding(padding: EdgeInsets.only(top: 300), child: Center(child: CircularProgressIndicator())) : SafeArea(
         child: Column(
           children: [
             Padding(

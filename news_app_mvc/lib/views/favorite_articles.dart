@@ -13,7 +13,7 @@ class _FavoriteArtcilesState extends State<FavoriteArtciles> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("Index 1, FavoriteArtciles"),
+        child: Text("coucou")
       ),
     );
   }

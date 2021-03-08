@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-enum CountryList {EN, US, FR}
+enum CountryList {en, us, fr}
 
 class CountryListSelection extends StatefulWidget {
   final country;
@@ -14,7 +14,7 @@ class CountryListSelection extends StatefulWidget {
 
 class _CountryListSelectionState extends State<CountryListSelection> {
 
-  CountryList _countryList = CountryList.EN;
+  CountryList _countryList = CountryList.en;
 
   @override
   void initState() {
@@ -41,19 +41,19 @@ class _CountryListSelectionState extends State<CountryListSelection> {
         children: [
           RadioListTile(
             title: const Text("United Kingdom"),
-            value: CountryList.EN,
+            value: CountryList.en,
             groupValue: _countryList,
             onChanged: (CountryList value) {setState(() {_countryList = value;});}
           ),
           RadioListTile(
               title: const Text("United States of America"),
-              value: CountryList.US,
+              value: CountryList.us,
               groupValue: _countryList,
               onChanged: (CountryList value) {setState(() {_countryList = value;});}
           ),
           RadioListTile(
               title: const Text("France"),
-              value: CountryList.FR,
+              value: CountryList.fr,
               groupValue: _countryList,
               onChanged: (CountryList value) {setState(() {_countryList = value;});}
           ),
@@ -72,14 +72,14 @@ class _CountryListSelectionState extends State<CountryListSelection> {
   _prevCountrySelected() {
     switch (widget.country) {
 
-      case "EN":
-        _countryList = CountryList.EN;
+      case "en":
+        _countryList = CountryList.en;
         break;
-      case "US":
-        _countryList = CountryList.US;
+      case "us":
+        _countryList = CountryList.us;
         break;
-      case "FR":
-        _countryList = CountryList.FR;
+      case "fr":
+        _countryList = CountryList.fr;
         break;
     }
     setState(() {});
