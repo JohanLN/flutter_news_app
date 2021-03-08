@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app_mvc/controllers/shared_pref_controller.dart';
 import 'package:news_app_mvc/models/shared_preferencies_config.dart';
 import 'package:news_app_mvc/views/master_page.dart';
 import 'package:provider/provider.dart';
@@ -49,9 +50,8 @@ class ThemeNotifier with ChangeNotifier {
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
-  SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  var isDarkTheme = prefs.getBool((SharedPreferencesTheme.isDarkTheme));
+  var isDarkTheme =  await SharedPrefController().getThemePref();
   ThemeData theme;
 
   if(isDarkTheme != null) {

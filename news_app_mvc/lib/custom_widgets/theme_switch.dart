@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:news_app_mvc/controllers/shared_pref_controller.dart';
 import 'package:news_app_mvc/models/shared_preferencies_config.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,8 +18,7 @@ class _ThemeSwitchState extends State<ThemeSwitch> {
     (value)
         ? themeNotifier.setTheme(darkTheme)
         : themeNotifier.setTheme(lightTheme);
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool(SharedPreferencesTheme.isDarkTheme, value);
+    SharedPrefController().setThemePref(SharedPreferencesTheme.isDarkTheme, value);
   }
 
   @override
