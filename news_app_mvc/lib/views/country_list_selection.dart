@@ -4,6 +4,10 @@ import 'package:flutter/material.dart';
 enum CountryList {EN, US, FR}
 
 class CountryListSelection extends StatefulWidget {
+  final country;
+
+  CountryListSelection({Key key, this.country}) : super(key: key);
+
   @override
   _CountryListSelectionState createState() => _CountryListSelectionState();
 }
@@ -15,6 +19,7 @@ class _CountryListSelectionState extends State<CountryListSelection> {
   @override
   void initState() {
     super.initState();
+    _prevCountrySelected();
   }
 
   @override
@@ -55,8 +60,8 @@ class _CountryListSelectionState extends State<CountryListSelection> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              FlatButton(onPressed: () {print(_countryList.index);}, child: const Text("Cancel")),
-              FlatButton(onPressed: () {Navigator.pop(context, _countryList.index);}, child: const Text("Submit")),
+              FlatButton(onPressed: () {Navigator.pop(context);}, child: const Text("Cancel")),
+              FlatButton(onPressed: () {Navigator.pop(context, _countryList.toString().split('.').last);}, child: const Text("Submit")),
             ],
           )
         ],
@@ -64,4 +69,19 @@ class _CountryListSelectionState extends State<CountryListSelection> {
     );
   }
 
+  _prevCountrySelected() {
+    switch (widget.country) {
+
+      case "EN":
+        _countryList = CountryList.EN;
+        break;
+      case "US":
+        _countryList = CountryList.US;
+        break;
+      case "FR":
+        _countryList = CountryList.FR;
+        break;
+    }
+    setState(() {});
+  }
 }

@@ -96,10 +96,12 @@ class _ProfileState extends State<Profile> {
                     title: Text("${this._user.username}", style: TextStyle(fontSize: 20, color: Theme.of(context).accentColor)),
                     onTap: () {
                       createUsernameDialog(context).then((value) async {
-                        setState(() {
-                          _user.username = value;
-                        });
-                        await SharedPrefController().saveUser(_user);
+                        if (value != null) {
+                          setState(() {
+                            _user.username = value;
+                          });
+                          await SharedPrefController().saveUser(_user);
+                        }
                       });
                     },
                   ),
@@ -114,14 +116,18 @@ class _ProfileState extends State<Profile> {
                 child: Center(
                   child: ListTile(
                     leading: Icon(Icons.public, size: 40,),
-                    title: Text("Country", style: TextStyle(fontSize: 20, color: Theme.of(context).accentColor)),
+                    title: Text("Country : ${_user.country}", style: TextStyle(fontSize: 20, color: Theme.of(context).accentColor)),
                     onTap: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => CountryListSelection()))
-                          .then(
-                              (value) => {
-                                print(value)
-                              }
-                          );
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => CountryListSelection(country: _user.country)))
+                          .then((value) async {
+                            if (value != null) {
+                              setState(() {
+                                _user.country = value;
+                                print(_user.country);
+                              });
+                              await SharedPrefController().saveUser(_user);
+                            }
+                          });
                     },
                   ),
                 ),
