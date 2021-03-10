@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _fetchTopHeadlines();
+    //_fetchTopHeadlines();
   }
 
   @override
@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: _isLoading ? Center(child: CircularProgressIndicator()) : Center(
         child: ListView.separated(
-          itemCount: _news.articles.length,
+          itemCount: 0,//_news.articles.length,
           separatorBuilder: (BuildContext context, int index) => const Divider(),
           itemBuilder: (BuildContext context, int index) {
             return Container(

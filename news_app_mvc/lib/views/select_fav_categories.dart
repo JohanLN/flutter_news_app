@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 
 class SelectFavCategories extends StatefulWidget {
+
+  List<bool> isChecked;
+
+  SelectFavCategories({Key key, this.isChecked}) : super(key: key);
 
   @override
   _SelectFavCategoriesState createState() => _SelectFavCategoriesState();
@@ -10,13 +13,22 @@ class SelectFavCategories extends StatefulWidget {
 
 class _SelectFavCategoriesState extends State<SelectFavCategories> {
 
+  List<String> topicTitles = ["Business", "Entertainement", "General", "Health", "Science", "Sports", "Technology"];
+  List<bool> isChecked = [false, false, false, false, false, false, false];
+
   @override
   void initState() {
     super.initState();
+    if (widget.isChecked != null && widget.isChecked.length > 0) {
+      setState(() {
+        isChecked = widget.isChecked;
+      });
+    }
+    else {
+      isChecked = [false, false, false, false, false, false, false];
+    }
   }
 
-  List<String> topicTitles = ["Business", "Entertainement", "General", "Health", "Science", "Sports", "Technology"];
-  List<bool> isChecked = [false, false, false, false, false, false, false];
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +45,7 @@ class _SelectFavCategoriesState extends State<SelectFavCategories> {
         actions: [
             FlatButton(
                 onPressed: () {
-                  print(isChecked);
+                  Navigator.pop(context, isChecked);
                 },
                 child: const Text("Submit")
             ),
