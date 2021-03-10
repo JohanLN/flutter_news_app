@@ -7,7 +7,6 @@ import 'package:news_app_mvc/custom_widgets/username_dialog.dart';
 import 'package:news_app_mvc/models/user.dart';
 import 'package:news_app_mvc/views/country_list_selection.dart';
 import 'package:news_app_mvc/views/select_fav_categories.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatefulWidget {
 
@@ -64,14 +63,11 @@ class _ProfileState extends State<Profile> {
     }
   }
 
-  loadSavedImage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    final imageKeyValue = prefs.getString(IMAGE_KEY);
-
-    if (imageKeyValue != null) {
-      final imageString = await SaveProfilePicture.loadImageFromPrefs();
+  void loadSavedImage() async {
+    var isImage = await SharedPrefController().loadSavedImage();
+    if (isImage != null) {
       setState(() {
-        image = SaveProfilePicture.imageFrom64BaseString(imageString);
+        image = isImage;
       });
     }
   }
@@ -86,7 +82,6 @@ class _ProfileState extends State<Profile> {
               padding: const EdgeInsets.only(top: 20.0, bottom: 40.0),
               child: InkWell(
                 onTap: () {
-                  print("Tap");
                   _showPickOptionsDialog(context);
                 },
                 child: CircleAvatar(
@@ -133,7 +128,6 @@ class _ProfileState extends State<Profile> {
                             if (value != null) {
                               setState(() {
                                 _user.country = value;
-                                print(_user.country);
                               });
                               await SharedPrefController().saveUser(_user);
                             }
@@ -167,12 +161,11 @@ class _ProfileState extends State<Profile> {
                     leading: Icon(Icons.favorite_border, size: 40),
                     title: Text("Favorite categories", style: TextStyle(fontSize: 20, color: Theme.of(context).accentColor)),
                     onTap: () {
-                      print(_user.topics);
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => SelectFavCategories(isChecked: _user.topics))).then((value) async {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SelectFavCategories(isChecked: _user.topics, availableTopics: _user.availableTopics,))).then((value) async {
                         if (value != null) {
                           setState(() {
-                            _user.topics = value;
-
+                            _user.topics = value["boolTab"];
+                            _user.availableTopics = value["stringTab"];
                           });
                           await SharedPrefController().saveUser(_user);
                         }
