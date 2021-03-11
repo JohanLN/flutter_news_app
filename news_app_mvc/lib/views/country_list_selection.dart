@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-enum CountryList {en, us, fr}
+enum CountryList {gb, us, fr}
 
 class CountryListSelection extends StatefulWidget {
   final country;
@@ -14,7 +14,7 @@ class CountryListSelection extends StatefulWidget {
 
 class _CountryListSelectionState extends State<CountryListSelection> {
 
-  CountryList _countryList = CountryList.en;
+  CountryList _countryList = CountryList.gb;
 
   @override
   void initState() {
@@ -41,7 +41,7 @@ class _CountryListSelectionState extends State<CountryListSelection> {
         children: [
           RadioListTile(
             title: const Text("United Kingdom"),
-            value: CountryList.en,
+            value: CountryList.gb,
             groupValue: _countryList,
             onChanged: (CountryList value) {setState(() {_countryList = value;});}
           ),
@@ -72,8 +72,8 @@ class _CountryListSelectionState extends State<CountryListSelection> {
   _prevCountrySelected() {
     switch (widget.country) {
 
-      case "en":
-        _countryList = CountryList.en;
+      case "gb":
+        _countryList = CountryList.gb;
         break;
       case "us":
         _countryList = CountryList.us;

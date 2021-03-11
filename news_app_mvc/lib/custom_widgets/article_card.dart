@@ -30,7 +30,6 @@ class _ArticleCardState extends State<ArticleCard> {
     if (widget.articles.urlToImage == null) {
       widget.articles.urlToImage = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png";
     }
-    print(widget.articles.urlToImage);
   }
 
   @override
@@ -48,20 +47,23 @@ class _ArticleCardState extends State<ArticleCard> {
               children: <Widget>[
                 InkWell(
                     onTap: () {
-                      print("Tap at index : ${widget.index}");
                       Navigator.push(context, MaterialPageRoute(builder: (context) => PageDetails(articles: widget.articles, isFavorite: _isFavorite, isFilled: _isFilled,)));
                     },
                     child: Container(
                       width: 300,
-                      height: 300,
+                      height: 400,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: <Widget>[
-                          ClipRRect(borderRadius: BorderRadius.circular(8.0), child: Image(image: NetworkImage(widget.articles.urlToImage), height: 200)),
                           Padding(
                             padding: const EdgeInsets.all(10.0),
-                            child: Text("${widget.articles.title}", textAlign: TextAlign.left,style: TextStyle(fontSize: 13)),
+                            child: Text("${widget.articles.title}", textAlign: TextAlign.left, overflow: TextOverflow.ellipsis, maxLines: 3,style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Theme.of(context).accentColor)),
+                          ),
+                          Image(image: NetworkImage(widget.articles.urlToImage), height: 200, width: 400,),
+                          Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Text("${widget.articles.description}", textAlign: TextAlign.left, overflow: TextOverflow.ellipsis, maxLines: 4, style: TextStyle(fontSize: 11)),
                           )
                         ],
                       ),

@@ -8,7 +8,7 @@ class User {
   User(
         {
           this.username = "Username",
-          this.country = "en",
+          this.country = "gb",
           this.topics,
           this.availableTopics,
         }
@@ -17,7 +17,7 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       username: json["username"] ?? "username",
-      country: json["country"] ?? "en",
+      country: json["country"] ?? "gb",
       topics: json["topics"].cast<bool>(),
       availableTopics: json["availableTopics"].cast<String>(),
     );

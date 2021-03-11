@@ -35,7 +35,6 @@ class _PageDetailsState extends State<PageDetails> {
       int i = 0;
       int j = 0;
       for (i = 0; widget.articles.content[i] != '['; i++);
-      print(i);
       for (j = 0; widget.articles.content[i] != ']'; i++, j++);
       j++;
       widget.articles.content = widget.articles.content.substring(
@@ -60,9 +59,9 @@ class _PageDetailsState extends State<PageDetails> {
         toolbarHeight: 100,
           title: Text(
             widget.articles.title,
-            style: TextStyle(fontSize: 15),
+            style: TextStyle(fontSize: 15, color: Theme.of(context).accentColor),
             overflow: TextOverflow.ellipsis,
-            maxLines: 3,
+            maxLines: 1,
         )
       ),
       body: Column(

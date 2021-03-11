@@ -13,8 +13,13 @@ const String API_KEY = "apiKey=36cb3a17beaa4169bb99ff9fc8118563";
 class NewsApiController {
 
   // Funtion pour récupérer et envoyer les gros titres du moment, à notre modèle News.
-  Future<News> getTopHeadlines() async {
-    var response = await NewsApiCalls().get(URL_TOP_HEADLINES + COUNTRY + API_KEY);
+  Future<News> getTopHeadlines(String country) async {
+    var response = await NewsApiCalls().get(URL_TOP_HEADLINES + "country=${country}&" + API_KEY);
+    return News.fromJson(jsonDecode(response));
+  }
+  
+  Future<News> getCategoryHeadlines(String country, String category) async {
+    var response = await NewsApiCalls().get(URL_TOP_HEADLINES + "country=${country}&" + "category=${category}&" + API_KEY);
     return News.fromJson(jsonDecode(response));
   }
 
