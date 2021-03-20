@@ -12,7 +12,6 @@ class Articles {
   Articles({this.title, this.description, this.content, this.url, this.urlToImage, this.date});
 
   factory Articles.fromJson(Map<String, dynamic> json) {
-
     return Articles(
       title: json['title'] as String,
       description: json['description'] as String,
@@ -21,7 +20,15 @@ class Articles {
       urlToImage: json['urlToImage'] as String,
       date: json['publishedAt'] as String,
     );
-
   }
+
+  Map<String, dynamic> toJson() => {
+    "title": title,
+    "description": description,
+    "content": content,
+    "url": url,
+    "urlToImage": urlToImage,
+    "date": date
+  };
 
 }

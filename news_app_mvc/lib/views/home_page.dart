@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
         _user = User();
         _user.topics = [true,true,true,true,true,true,true];
         _user.availableTopics = ["Business", "Entertainement", "General", "Health", "Science", "Sports", "Technology"];
+        _user.favArticles = [];
       });
       await SharedPrefController().saveUser(_user);
       await _fetchTopHeadlines();
@@ -84,7 +85,7 @@ class _HomePageState extends State<HomePage> {
           itemBuilder: (BuildContext context, int index) {
             return Container(
               height: 500,
-              child: Center(child: ArticleCard(articles: _news.articles[index], index: index))
+              child: Center(child: ArticleCard(articles: _news.articles[index], index: index, user: _user))
             );
           },
         ),

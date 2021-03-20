@@ -1,9 +1,16 @@
+import 'dart:convert';
+import 'package:news_app_mvc/models/articles.dart';
+import 'package:json_annotation/json_annotation.dart';
+part 'user.g.dart';
+
+@JsonSerializable()
 class User {
 
   String username;
   String country;
   List<bool> topics;
   List<String> availableTopics;
+  List<Articles> favArticles;
 
   User(
         {
@@ -11,21 +18,11 @@ class User {
           this.country = "gb",
           this.topics,
           this.availableTopics,
+          this.favArticles,
         }
       );
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
-      username: json["username"] ?? "username",
-      country: json["country"] ?? "gb",
-      topics: json["topics"].cast<bool>(),
-      availableTopics: json["availableTopics"].cast<String>(),
-    );
-  }
-  Map<String, dynamic> toJson() => {
-    "username": username,
-    "country": country,
-    "topics": topics,
-    "availableTopics": availableTopics,
-  };
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 }

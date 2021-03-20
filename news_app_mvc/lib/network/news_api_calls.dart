@@ -8,12 +8,9 @@ import 'package:http/http.dart' as http;
 class NewsApiCalls {
 
   Future<String> get(String url) async {
-
     var response = await http.get(url);
 
     if (response.statusCode != HttpStatus.ok) throw Exception(response.body);
-
-    log('Network = ${response.body}');
 
     return response.body;
 

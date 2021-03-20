@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:news_app_mvc/controllers/shared_pref_controller.dart';
 import 'package:news_app_mvc/models/articles.dart';
 import 'package:jiffy/jiffy.dart';
+import 'package:news_app_mvc/models/user.dart';
 import 'package:news_app_mvc/views/page_details.dart';
 
 // Un customWidget qui va nous permettre d'afficher des cartes contenant la preview de nos articles dans la HomePage pour avoir un code plus lisible.
@@ -8,8 +10,9 @@ import 'package:news_app_mvc/views/page_details.dart';
 class ArticleCard extends StatefulWidget {
   final Articles articles;
   final int index;
+  User user;
 
-  ArticleCard({Key key, this.articles, this.index}) : super(key: key);
+  ArticleCard({Key key, this.articles, this.index, this.user}) : super(key: key);
 
   @override
   _ArticleCardState createState() => _ArticleCardState();
@@ -20,7 +23,7 @@ class _ArticleCardState extends State<ArticleCard> {
 
   IconData _isFavorite;
   MaterialColor _isFilled;
-
+  bool alreadyFav = false;
 
   @override
   void initState() {
@@ -29,6 +32,20 @@ class _ArticleCardState extends State<ArticleCard> {
     _isFilled = Colors.grey;
     if (widget.articles.urlToImage == null) {
       widget.articles.urlToImage = "https://www.salonlfc.com/wp-content/uploads/2018/01/image-not-found-scaled.png";
+    }
+    if (widget.user.favArticles == null) {
+      widget.user.favArticles = [];
+    }
+    else {
+      for (var i = 0; i < widget.user.favArticles.length; i++) {
+        if (widget.user.favArticles[i].title == widget.articles.title) {
+          setState(() {
+            _isFavorite = Icons.favorite;
+            _isFilled = Colors.red;
+            alreadyFav = true;
+          });
+        }
+      }
     }
   }
 
@@ -81,7 +98,7 @@ class _ArticleCardState extends State<ArticleCard> {
                                 icon: Icon(_isFavorite),
                                 iconSize: 30,
                                 color: _isFilled,
-                                onPressed: () {
+                                onPressed: () async {
                                   setState(() {
                                     if (_isFavorite != Icons.favorite) {
                                       _isFavorite = Icons.favorite;
@@ -91,6 +108,22 @@ class _ArticleCardState extends State<ArticleCard> {
                                       _isFilled = Colors.grey;
                                     }
                                   });
+                                  if (!alreadyFav && _isFavorite != Icons.favorite) {
+                                    widget.user.favArticles.add(
+                                        widget.articles);
+                                    await SharedPrefController().saveUser(
+                                        widget.user);
+                                  }
+                                  else {
+                                    for (var i = 0; i < widget.user.favArticles.length; i++) {
+                                      if (widget.user.favArticles[i].title == widget.articles.title) {
+                                        print("remove at ${i}");
+                                        widget.user.favArticles.removeAt(i);
+                                      }
+                                    }
+                                    await SharedPrefController().saveUser(
+                                        widget.user);
+                                  }
                                 }
                             ),
                             Text("${Jiffy(widget.articles.date).fromNow()}")
