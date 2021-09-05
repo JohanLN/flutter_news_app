@@ -126,7 +126,8 @@ class _FavoriteCategoriesState extends State<FavoriteCategories> {
                   child: Center(
                       child: ArticleCard(
                         articles: _news.articles[index],
-                        index: index
+                        index: index,
+                        user: _user,
                       )
                   ),
                 );
